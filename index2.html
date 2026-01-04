@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mundo Azul</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body, html { width:100%; font-family:sans-serif; background:#081330; color:#fff; scroll-behavior:smooth; overflow-x:hidden; }
+
+/* Fundo fixo */
+#background { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+
+/* Estrelas */
+.star, .star-moving { position:absolute; background:white; border-radius:50%; }
+.star { width:2px; height:2px; }
+.star-moving { width:1.5px; height:1.5px; opacity:0.8; animation: twinkle 3s ease-in-out infinite alternate; }
+@keyframes twinkle { 0%{opacity:0.3;} 50%{opacity:1;} 100%{opacity:0.3;} }
+
+/* Confetes caindo */
+.confetti { position:absolute; width:6px; height:6px; background:#77c9f5; border-radius:50%; animation: confettiFall 5s linear infinite; opacity:0.7; }
+@keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0deg); } 100% { transform: translateY(120vh) rotate(360deg); } }
+
+/* Balões laterais */
+.balloon { position:absolute; width:60px; height:80px; border-radius:50%; background:#77c9f5; animation: floatBalloon 6s ease-in-out infinite; cursor:pointer; }
+.ribbon { position:absolute; width:2px; height:40px; background:#77c9f5; top:80px; left:29px; }
+@keyframes floatBalloon { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-30px); } }
+
+/* Conteúdo */
+#hero, .map, .letter { position:relative; z-index:1; }
+#hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:2rem; }
+#hero h1 { font-size:1.3rem; line-height:1.8rem; max-width:700px; margin-bottom:2rem; }
+#hero button { padding:0.8rem 2rem; font-size:1rem; background:#0b3f6c; color:#fff; border:none; border-radius:5px; cursor:pointer; transition:0.3s; }
+#hero button:hover { background:#14539e; }
+
+/* Mapa interativo */
+.map { display:flex; flex-direction:column; gap:3rem; margin-top:2rem; max-width:800px; margin-left:auto; margin-right:auto; text-align:center; }
+.map h1 { font-size:2rem; margin-bottom:1.5rem; color:#77c9f5; }
+.map-item { background:rgba(10,25,50,0.7); padding:1.5rem; border-radius:10px; cursor:pointer; transition:0.3s; border:1px solid #14539e; position:relative; }
+.map-item:hover { background:rgba(10,25,50,0.9); transform:scale(1.03); }
+.map-item h2 { margin-bottom:0.5rem; font-size:1.3rem; }
+.map-item p { display:none; font-size:1rem; line-height:1.6; margin-top:0.5rem; }
+.map-item.active p { display:block; }
+
+/* Carta final */
+.letter { font-family:'Dancing Script', cursive; font-size:1.5rem; line-height:2.1rem; max-width:700px; margin:3rem auto; text-align:center; padding:3rem 2rem; }
+
+/* Responsivo */
+@media(max-width:768px) {
+  #hero h1 { font-size:1.1rem; line-height:1.5rem; }
+  .map h1 { font-size:1.6rem; }
+  .map-item h2 { font-size:1.1rem; }
+  .map-item p { font-size:0.95rem; }
+  .letter { font-size:1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Fundo com estrelas, confetes e balões -->
+<div id="background"></div>
+
+<!-- Tela inicial -->
+<section id="hero">
+<h1>
+Bem-vindo ao seu espaço...<br>
+Onde o céu guarda cada lembrança sua 🌌<br>
+Cada estrela parece acender só para você💫<br>
+E cada instante parece feito para lembrar que você existe de forma única. ❤️<br>
+Hoje é o seu dia... Respire, sinta e deixe que o mundo silencioso aqui celebre você...🙌🎉
+</h1>
+<button onclick="document.getElementById('map').scrollIntoView({behavior:'smooth'})">Entrar no seu mundo</button>
+</section>
+
+<!-- Mapa interativo -->
+<section id="map" class="map">
+<h1>Feliz Aniversário!!! 🎉🥳</h1>
+<div class="map-item" onclick="toggleMessage(this)">
+<h2>🌱 Crescimento</h2>
+<p>Você cresceu rápido demais para quem ainda aprendia a descansar. Em pouco tempo, precisou se tornar forte, atento, responsável por si. E mesmo assim, não endureceu. Continuou sensível, curioso, inteiro. Há algo profundamente raro em amadurecer sem perder a delicadeza.</p>
+</div>
+<div class="map-item" onclick="toggleMessage(this)">
+<h2>🧠 Mente & Terapia</h2>
+<p>Nem todo mundo tem coragem de encarar o próprio caos enquanto ele ainda está em movimento. Você olhou pra dentro mesmo quando o mundo te puxava pra frente. Aprendeu que crescer não é só avançar é sustentar o que se encontra no caminho.</p>
+</div>
+<div class="map-item" onclick="toggleMessage(this)">
+<h2>🎓 Faculdade</h2>
+<p>Você ainda vai chegar lá, mas já carrega o que precisa. A faculdade não te moldará — ela só vai revelar partes suas que já estavam prontas para existir.</p>
+</div>
+<div class="map-item" onclick="toggleMessage(this)">
+<h2>🚗 Conquistas</h2>
+<p>Suas conquistas não surgem como sorte, mas como resultado de atenção, disciplina e escolha contínua.</p>
+</div>
+<div class="map-item" onclick="toggleMessage(this)">
+<h2>❤️ Relações</h2>
+<p>Você não se abre com facilidade, e isso nunca foi distância. É cuidado. Quem entra no seu mundo percebe rápido que estar perto de você exige presença, respeito e verdade.</p>
+</div>
+<div class="map-item" onclick="toggleMessage(this)">
+<h2>✨ O Extraordinário</h2>
+<p>Talvez você ainda não perceba, mas o extraordinário não está distante. Ele já acontece nesse crescimento acelerado que não te tirou a essência. Na forma silenciosa com que você muda os lugares por onde passa.</p>
+</div>
+</section>
+
+<!-- Carta final -->
+<section class="letter">
+04.01.2002<br><br>
+Em algum ponto do tempo, nascia um garoto luminoso, desses que não fazem barulho ao chegar, mas transformam tudo em volta sem perceber.<br>
+Talvez ele ainda não soubesse e talvez ainda não saiba o quanto é capaz de deixar o mundo mais leve só por existir.<br><br>
+Sempre tão no seu canto, tão fiel ao próprio universo, escolhendo cuidadosamente quem pode atravessar essa fronteira invisível… E eu confesso: me sinto profundamente honrada por ter sido permitida entrar.<br><br>
+Hoje é o seu dia. E eu desejo, de verdade, que essa nova fase te trate com gentileza.<br><br>
+Que venha carregada de descobertas boas, daquelas que aquecem por dentro.<br>
+Que você tenha paz nos dias comuns, saúde para sustentar seus sonhos, disciplina nos treinos, cuidado com o corpo, água Y mais água e se alimente bem porque você merece estar bem por inteiro, por dentro e por fora.<br><br>
+Que a vida te surpreenda com realizações que hoje parecem distantes, mas que um dia vão soar óbvias.<br>
+Que seu caminho profissional se expanda, que você se reconheça cada vez mais no que faz e no que constrói.<br><br>
+Que seus relacionamentos sejam verdadeiros, leves, respeitosos.<br>
+Que você continue aprendendo a se escutar, a se entender, a se acolher e que a terapia seja um espaço de crescimento real, daqueles que mudam a forma de enxergar o mundo e a si mesmo.<br><br>
+Que a faculdade seja mais do que obrigação: que seja um lugar de evolução, de curiosidade, de propósito.<br>
+Que o carro deixe de ser plano e vire conquista.<br>
+Que morar sozinho se torne realidade.<br><br>
+E, acima de tudo, que você tenha coragem de sair do lugar conhecido e viver o extraordinário.<br>
+Não aquele extraordinário barulhento, mas o raro, o profundo, o que transforma silenciosamente.<br><br>
+Que você continue sendo exatamente quem é.<br>
+Porque o mundo já tem gente demais tentando ser outra coisa...✨💙
+</section>
+
+<script>
+// Tópicos clicáveis
+function toggleMessage(el){
+  el.classList.toggle('active');
+  el.scrollIntoView({behavior:'smooth'});
+}
+
+// Criar fundo fixo
+function createBackground() {
+  const bg = document.getElementById('background');
+
+  // Estrelas paradas
+  for(let i=0;i<400;i++){
+    let star = document.createElement('div');
+    star.className='star';
+    star.style.top = Math.random()*100+'%';
+    star.style.left = Math.random()*100+'%';
+    star.style.width = star.style.height = (Math.random()*2+1)+'px';
+    star.style.opacity = Math.random();
+    bg.appendChild(star);
+  }
+
+  // Estrelas piscantes
+  for(let i=0;i<300;i++){
+    let star = document.createElement('div');
+    star.className='star-moving';
+    star.style.top = Math.random()*100+'%';
+    star.style.left = Math.random()*100+'%';
+    star.style.width = star.style.height = (Math.random()*2+1)+'px';
+    bg.appendChild(star);
+  }
+
+  // Confetes
+  for(let i=0;i<150;i++){
+    let conf = document.createElement('div');
+    conf.className='confetti';
+    conf.style.top = Math.random()*100+'%';
+    conf.style.left = Math.random()*100+'%';
+    conf.style.animationDelay = Math.random()*5+'s';
+    bg.appendChild(conf);
+  }
+
+  // Balões laterais
+  let positions = ['2%','5%','10%','90%','95%','85%'];
+  positions.forEach((pos,index)=>{
+    let balloon = document.createElement('div');
+    balloon.className='balloon';
+    balloon.style.top = (10+index*12)+'%';
+    balloon.style.left = (index%2===0 ? pos : '');
+    balloon.style.right = (index%2!==0 ? pos : '');
+    let ribbon = document.createElement('div');
+    ribbon.className='ribbon';
+    balloon.appendChild(ribbon);
+    bg.appendChild(balloon);
+  });
+}
+
+window.onload = createBackground;
+</script>
+
+</body>
+</html>
